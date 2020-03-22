@@ -1,14 +1,14 @@
-import React from 'react'
-import Context from '../Context'
+import React, {useContext} from 'react'
+import {Context} from '../Context'
 import {UserForm} from '../components/UserForm'
 import {RegisterMutation} from '../container/RegisterMutation'
 import {LoginMutation} from '../container/LoginMutation'
 
 export const NotRegisteredUser = () => {
-  return (
-    <Context.Consumer>
-      {
-        ({activateAuth}) => {
+
+  const {activateAuth} = useContext(Context)
+
+
           return(
             <React.Fragment>
               <RegisterMutation>
@@ -18,7 +18,10 @@ export const NotRegisteredUser = () => {
                       const input = { email, password };
                       const variables = { input };
                       //aca hacer fetch
-                      register({variables}).then(activateAuth)
+                      register({variables}).then(({data}) => {
+                        const {signup} = data
+                        activateAuth(signup);
+                      })
                     }
 
                     const errorMsg = error && 'El usuario ya existe o hay algun error'
@@ -34,7 +37,10 @@ export const NotRegisteredUser = () => {
                       const input = { email, password };
                       const variables = { input };
                       //aca hacer fetch
-                      login({variables}).then(activateAuth)
+                      login({variables}).then(({data}) =>{
+                        const {login} = data;
+                        activateAuth(login, email)
+                      })
                     }
                 
                     const errorMsg = error && 'Email o contraseña invalida'
@@ -48,9 +54,4 @@ export const NotRegisteredUser = () => {
               
             </React.Fragment>
           )
-        }
-      }
-    </Context.Consumer>
-    
-  )
 }

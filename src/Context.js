@@ -1,15 +1,22 @@
 import React, {createContext, useState} from 'react';
 
-const Context = createContext();
+export const Context = createContext();
 
 const Provider = ({children}) => {
-  const [isAuth, setIsAuth] = useState(false);
-  const [nombre, setNombre] = useState(false);
+  const [isAuth, setIsAuth] = useState(() => {
+    return window.sessionStorage.getItem('token')
+  });
+
+  const [email, setEmail] = useState('')
+
   
   const value = {
       isAuth,
-      activateAuth: () => {
+      email,
+      activateAuth: (token, email = '') => {
         setIsAuth(true)
+        window.sessionStorage.setItem('token',token)
+        setEmail(email)
       }
   }
 
