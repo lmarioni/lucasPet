@@ -17,6 +17,10 @@ const Provider = ({children}) => {
         setIsAuth(true)
         window.sessionStorage.setItem('token',token)
         setEmail(email)
+      },
+      removeAuth: () =>{
+        setIsAuth(false)
+        window.sessionStorage.removeItem('token')
       }
   }
 

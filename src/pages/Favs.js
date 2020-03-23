@@ -1,13 +1,17 @@
 import React, { useContext } from 'react'
 import {Context} from '../Context'
+import{FavsWithQuery} from '../container/getFavorites'
+import {Helmet} from 'react-helmet'
+import { Layout } from '../components/Layout'
 
 
-export const Favs = () => {
+export default () => {
   const { email } = useContext(Context)
  
   return (
-    <div>
-      <h1>fav: {email}</h1>
-    </div>
+    <Layout title='Tus favoritos' subtitle='Aqui estan tus favoritos'>
+      <h4>fav de: {email}</h4>
+      <FavsWithQuery />
+    </Layout>
   )
 }

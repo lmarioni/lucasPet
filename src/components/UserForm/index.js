@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
-import {Form, Input, Button, Title, Error} from './styles'
+import {Form, Input, Title, Error} from './styles'
 import {useInputValue} from '../../hooks/useInputValue'
+import { SubmitButton } from '../SubmitButton'
 
 export const UserForm = ({error, onSubmit, title, disabled}) =>  {
 
@@ -19,7 +20,7 @@ const handleSubmit = (event) => {
         <Input type="text" placeholder="email" {...email}  disabled={disabled} />
         {/* en email uso ...email porque las propiedades son las mismas q las etiquetas que tiene el input */}
         <Input type="password" placeholder="password" value={password.value} onChange={ password.onChange} disabled={disabled} />
-        <Button disabled={disabled} type="submit"> {title} </Button>
+        <SubmitButton disabled={disabled} > {title} </SubmitButton>
       </Form>
         {error && <Error>{error}</Error> }
     </React.Fragment>

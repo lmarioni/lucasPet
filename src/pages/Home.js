@@ -1,12 +1,22 @@
 import React from 'react'
 import { ListOfCategories } from '../components/ListOfCategories'
 import { ListOfPhotoCards } from '../container/ListOfPhotoCard'
+import { Helmet } from 'react-helmet'
+import { Layout } from '../components/Layout'
 
-export const Home = ({categoryId}) => {
+ const HomePage = ({categoryId}) => {
   return (
-    <React.Fragment>
+    <Layout title='Mascota photos' subtitle='Fotos de animales domesticos'>
+      <Helmet>
+
+      </Helmet>
     <ListOfCategories />
     <ListOfPhotoCards categoryId={categoryId} />
-    </React.Fragment>
+    </Layout>
   )
 }
+
+export const Home = React.memo(HomePage, (prevProps, props) => {
+  return prevProps.categoryId === props.id
+} )
+
